@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lab Dashboard</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#1f1c2c,#928dab);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+color:white;
+}
+
+.container{
+width:90%;
+max-width:700px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+padding:40px;
+border-radius:20px;
+text-align:center;
+}
+
+h2{
+background:linear-gradient(to right,#00f5a0,#00d9f5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+border:none;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:linear-gradient(45deg,#00f5a0,#00d9f5);
+cursor:pointer;
+font-weight:bold;
+}
+
+.loader{
+display:none;
+margin-top:15px;
+}
+
+.loader div{
+width:10px;
+height:10px;
+background:white;
+border-radius:50%;
+display:inline-block;
+animation:bounce 0.6s infinite alternate;
+}
+
+.loader div:nth-child(2){animation-delay:0.2s;}
+.loader div:nth-child(3){animation-delay:0.4s;}
+
+@keyframes bounce{
+from{transform:translateY(0);}
+to{transform:translateY(-10px);}
+}
+
+.response{
+margin-top:20px;
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:10px;
+text-align:left;
+}
+</style>
+
+<script>
+function showLoader(){
+document.getElementById("loader").style.display="block";
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+<h2>AI Lab Dashboard</h2>
+
+<h3>Document Chat</h3>
+<form method="POST" onsubmit="showLoader()">
+<input type="hidden" name="mode" value="document">
+<textarea name="document_text" placeholder="Paste document text here"></textarea>
+<input type="text" name="question" placeholder="Ask question from document">
+<button type="submit">Ask AI</button>
+</form>
+
+<hr>
+
+<h3>Web Scraper</h3>
+<form method="POST" onsubmit="showLoader()">
+<input type="hidden" name="mode" value="scrape">
+<input type="text" name="url" placeholder="Enter website URL">
+<button type="submit">Scrape & Summarize</button>
+</form>
+
+<div id="loader" class="loader">
+<div></div><div></div><div></div>
+</div>
+
+{% if response %}
+<div class="response">
+<strong>AI Response:</strong>
+<p>{{ response }}</p>
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
